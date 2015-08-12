@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<hea
+<meta charset="utf-8">
+<title>LCS</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+<style>
+input {
+	height: 30px;
+	width: 200px;
+	margin:5px;
+}
+</style>
+</head>
+<body>
+<h1>WebView : <script>document.write(new Date() * 1);</script></h1>
+
+<div><input id="openWebView" type="button" value="openWebView"></div>
+<div><input id="rotateWebView" type="button" value="rotateWebView"></div>
+<div><input id="closeWebView" type="button" value="closeWebView"></div>
+<div><input id="closeOtherWebView" type="button" value="closeOtherWebView"></div>
+
+<textarea id="log" cols=40 rows=50></textarea>
+
+
+<script src="https://scdn.line-apps.com/channel/sdk/js/LCSLoader_20150326.js"></script>
+<script>
+function onDeviceReady(e) {
+
+	var openWebView = document.getElementById("openWebView");
+	var rotateWebView = document.getElementById("rotateWebView");
+	var closeWebView = document.getElementById("closeWebView");
+	var closeOtherWebView = document.getElementById("closeOtherWebView");
+	var log = document.getElementById("log");
+
+	openWebView.addEventListener("click", function(e) {
+		LCS.Interface.openWebView({
+			url: location.protocol + "//" + location.host + "/app/webview/closeOtherWebView.html",
+			appear: 1,
+			orient: 0,
+			animation: true,
+			status: true,
+			useInAppBrowser: false,
+			external: false
+		});
+	},false);
+
+	var orient = true;
+	rotateWebView.addEventListener("click", function(e) {
+		orient = !orient;
+		LCS.Interface.rotateWebView({
+            orient: !orient ? 2 : 1,
+            animation: false
+		});
+	},false);
+
+	closeWebView.addEventListener("click", function(e) {
+		LCS.Interface.closeWebView();
+	},false);
+
+	closeOtherWebView.addEventListener("click", function(e) {
+		LCS.Interface.closeOtherWebView();
+	},false);
+
+}
+document.addEventListener("deviceready", onDeviceReady, false);
+</script>
+</body>
+</html>
